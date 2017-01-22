@@ -8,13 +8,20 @@ namespace CheckoutAPI.DAO
 {
     public class DrinkDAO
     {
-        private static Dictionary<string, Drink> database = new Dictionary<string, Drink>();
+        private static Dictionary<int, Drink> database = new Dictionary<int, Drink>();
+        static int nextId = 0;
 
-        public void AddOrUpdate(Drink drink)
+        public void Add(Drink drink)
         {
-            if (database.ContainsKey(drink.Name))
-                database.Remove(drink.Name);
-            database.Add(drink.Name, drink);
+            if (database.ContainsKey(drink.Id) || DrinkExists(drink))
+                throw new InvalidOperationException();
+
+            database.Add(nextId++, drink);
+        }
+
+        private bool DrinkExists(Drink drink)
+        {
+            return database.ContainsValue(drink);
         }
 
         public long GetQuantity()
@@ -22,14 +29,23 @@ namespace CheckoutAPI.DAO
             return database.Count();
         }
 
-        public void Remove(string name)
+        public void Remove(int id)
         {
-            database.Remove(name);
+            database.Remove(id);
         }
 
         public void RemoveAll()
         {
-            database = new Dictionary<string, Drink>();
+            database = new Dictionary<int, Drink>();
+        }
+
+        public void Update(Drink drink)
+        {
+            if (!database.ContainsKey(drink.Id))
+                throw new InvalidOperationException();
+
+            Remove(drink.Id);
+            Add(drink);
         }
     }
 }

@@ -23,16 +23,30 @@ namespace CheckoutAPI.Tests.DAO
         [Test]
         public void AddingOneDrink()
         {
-            drinkDAO.AddOrUpdate(new Drink("pepsi", 2));
+            drinkDAO.Add(new Drink(1, "pepsi", 2));
             Assert.AreEqual(1, drinkDAO.GetQuantity());
         }
 
         [Test]
         public void AddingOneDrinkAndRemovingIt()
         {
-            drinkDAO.AddOrUpdate(new Drink("pepsi", 2));
-            drinkDAO.Remove("pepsi");
+            drinkDAO.Add(new Drink(1, "pepsi", 2));
+            drinkDAO.Remove(1);
             Assert.AreEqual(0, drinkDAO.GetQuantity());
+        }
+
+        [Test]
+        public void AddingTwoDrinksWithTheSameId()
+        {
+            drinkDAO.Add(new Drink(1, "pepsi", 2));
+            Assert.Throws<InvalidOperationException>(()=>drinkDAO.Add(new Drink(1, "coke", 4)));
+        }
+
+        [Test]
+        public void AddingTwoDrinksWithTheSameName()
+        {
+            drinkDAO.Add(new Drink(1, "pepsi", 2));
+            Assert.Throws<InvalidOperationException>(() => drinkDAO.Add(new Drink(2, "pepsi", 4)));
         }
 
         [Test]
@@ -44,8 +58,8 @@ namespace CheckoutAPI.Tests.DAO
         [Test]
         public void RemovingAllDrinks()
         {
-            drinkDAO.AddOrUpdate(new Drink("pepsi", 2));
-            drinkDAO.AddOrUpdate(new Drink("coke", 1));
+            drinkDAO.Add(new Drink(1, "pepsi", 2));
+            drinkDAO.Add(new Drink(2, "coke", 1));
             drinkDAO.RemoveAll();
             Assert.AreEqual(0, drinkDAO.GetQuantity());
         }
