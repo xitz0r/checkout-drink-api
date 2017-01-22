@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace CheckoutAPI.Models
+namespace CheckoutAPI.Entities
 {
     // Models used as parameters to AccountController actions.
 

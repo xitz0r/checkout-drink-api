@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CheckoutAPI.Models
+namespace CheckoutAPI.Entities
 {
     // Models returned by AccountController actions.
 

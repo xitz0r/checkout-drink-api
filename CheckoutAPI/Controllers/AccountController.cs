@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using CheckoutAPI.Models;
+using CheckoutAPI.Entities;
 using CheckoutAPI.Providers;
 using CheckoutAPI.Results;
 
