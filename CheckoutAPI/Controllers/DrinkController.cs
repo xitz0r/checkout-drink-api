@@ -24,7 +24,7 @@ namespace CheckoutAPI.Controllers
             try
             {
                 drinkDAO.Add(drink);
-                return CreatedAtRoute("DefaultApi", new { id = drink.Id }, drink);
+                return CreatedAtRoute("Drink", new { id = drink.Id }, drink);
             }
             catch (InvalidOperationException e)
             {
@@ -33,6 +33,24 @@ namespace CheckoutAPI.Controllers
             catch (Exception)
             {
                 return BadRequest("Invalid data");
+            }
+        }
+
+        // PUT: api/Drink/5
+        public IHttpActionResult Put([FromUri]int id, [FromBody]Drink drink)
+        {
+            drink.Id = id;
+            try
+            {
+                Drink oldDrink = drinkDAO.Get(id);
+                if (drink.Name != oldDrink.Name)
+                    return BadRequest("Different name, only quantity is updatable");
+                drinkDAO.Update(drink);
+                return Ok(drink);
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Id doesn't exist");
             }
         }
     }

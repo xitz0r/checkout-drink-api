@@ -24,6 +24,13 @@ namespace CheckoutAPI.DAO
             return database.ContainsValue(drink);
         }
 
+        public Drink Get(int id)
+        {
+            if (database.ContainsKey(id))
+                return database[id];
+            throw new KeyNotFoundException();
+        }
+
         public long GetQuantity()
         {
             return database.Count();
