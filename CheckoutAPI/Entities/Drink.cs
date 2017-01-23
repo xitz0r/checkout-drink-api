@@ -7,9 +7,9 @@ namespace CheckoutAPI.Entities
 {
     public class Drink
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public long Quantity { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public long Quantity { get; set; }
 
         public Drink(int id, string name, long quantity)
         {
