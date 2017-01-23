@@ -14,6 +14,20 @@ namespace CheckoutAPI.Controllers
     {
         private static DrinkDAO drinkDAO = new DrinkDAO();
 
+        // DELETE: api/Drink/5
+        public IHttpActionResult Delete([FromUri]int id)
+        {
+            try
+            {
+                drinkDAO.Remove(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Id doesn't exist");
+            }
+        }
+
         // POST: api/Drink
         [ResponseType(typeof(Drink))]
         public IHttpActionResult Post([FromBody]Drink drink)

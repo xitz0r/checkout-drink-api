@@ -38,7 +38,9 @@ namespace CheckoutAPI.DAO
 
         public void Remove(int id)
         {
-            database.Remove(id);
+            if (database.ContainsKey(id))
+                database.Remove(id);
+            throw new KeyNotFoundException();
         }
 
         public void RemoveAll()
