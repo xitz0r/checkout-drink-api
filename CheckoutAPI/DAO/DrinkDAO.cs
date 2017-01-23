@@ -13,10 +13,11 @@ namespace CheckoutAPI.DAO
 
         public void Add(Drink drink)
         {
-            if (database.ContainsKey(drink.Id) || DrinkExists(drink))
+            if (DrinkExists(drink))
                 throw new InvalidOperationException();
 
-            database.Add(nextId++, drink);
+            drink.Id = nextId++;
+            database.Add(drink.Id, drink);
         }
 
         private bool DrinkExists(Drink drink)
@@ -28,6 +29,19 @@ namespace CheckoutAPI.DAO
         {
             if (database.ContainsKey(id))
                 return database[id];
+            throw new KeyNotFoundException();
+        }
+
+        public Drink Get(string name, int quantity)
+        {
+            foreach(Drink drink in database.Values)
+                if (drink.Name == name)
+                {
+                    if (drink.Quantity == quantity)
+                        return drink;
+                    break;
+                }
+                    
             throw new KeyNotFoundException();
         }
 

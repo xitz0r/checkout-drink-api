@@ -28,6 +28,20 @@ namespace CheckoutAPI.Controllers
             }
         }
 
+        // DELETE: api/Drink?name=name
+        public IHttpActionResult Get([FromUri]string name, [FromUri]int quantity)
+        {
+            try
+            {
+                Drink drink = drinkDAO.Get(name, quantity);
+                return Ok(drink);
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest("Drink with such name and quantity doesn't exist");
+            }
+        }
+
         // GET: api/Drink
         public IHttpActionResult Get()
         {
