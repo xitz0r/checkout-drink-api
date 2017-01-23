@@ -28,6 +28,12 @@ namespace CheckoutAPI.Controllers
             }
         }
 
+        // GET: api/Drink
+        public IHttpActionResult Get()
+        {
+            return Ok(drinkDAO.GetAll());
+        }
+
         // POST: api/Drink
         [ResponseType(typeof(Drink))]
         public IHttpActionResult Post([FromBody]Drink drink)

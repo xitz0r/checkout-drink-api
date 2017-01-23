@@ -31,6 +31,11 @@ namespace CheckoutAPI.DAO
             throw new KeyNotFoundException();
         }
 
+        public IEnumerable<Drink> GetAll()
+        {
+            return database.Values;
+        }
+
         public long GetQuantity()
         {
             return database.Count();
