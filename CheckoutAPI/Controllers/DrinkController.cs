@@ -38,7 +38,7 @@ namespace CheckoutAPI.Controllers
             try
             {
                 drinkDAO.Add(drink);
-                return CreatedAtRoute("Drink", new { id = drink.Id }, drink);
+                return Ok(drink);
             }
             catch (InvalidOperationException e)
             {
